@@ -21,8 +21,6 @@ function whatIsHappening()
     var_dump($_SESSION);
 }
 
-
-//your products with their price.
 $products = [
     ['name' => 'Club Ham', 'price' => 3.20],
     ['name' => 'Club Cheese', 'price' => 3],
@@ -30,13 +28,24 @@ $products = [
     ['name' => 'Club Chicken', 'price' => 4],
     ['name' => 'Club Salmon', 'price' => 5]
 ];
-
-$products = [
-    ['name' => 'Cola', 'price' => 2],
-    ['name' => 'Fanta', 'price' => 2],
-    ['name' => 'Sprite', 'price' => 2],
-    ['name' => 'Ice-tea', 'price' => 3],
-];
+//your products with their price.
+if ($_SERVER['REQUEST_URI'] == "/php-order-form/?food=1"){
+    $products = [
+        ['name' => 'Club Ham', 'price' => 3.20],
+        ['name' => 'Club Cheese', 'price' => 3],
+        ['name' => 'Club Cheese & Ham', 'price' => 4],
+        ['name' => 'Club Chicken', 'price' => 4],
+        ['name' => 'Club Salmon', 'price' => 5]
+    ];
+}
+elseif ($_SERVER['REQUEST_URI'] == "/php-order-form/?food=0") {
+    $products = [
+        ['name' => 'Cola', 'price' => 2],
+        ['name' => 'Fanta', 'price' => 2],
+        ['name' => 'Sprite', 'price' => 2],
+        ['name' => 'Ice-tea', 'price' => 3],
+    ];
+}
 
 $totalValue = 0;
 $errorArr = [];
@@ -77,22 +86,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             array_push($errorArr, ["zipError" => "Zipcode can only contain numbers"]);
         }
     }
-    $_SESSION["email"]  = $_POST["email"];
+    $_SESSION["email"] = $_POST["email"];
     $_SESSION["street"] = $_POST["street"];
     $_SESSION["streetNr"] = $_POST["streetnumber"];
     $_SESSION["city"] = $_POST["city"];
-    $_SESSION["zip"] =$_POST["zipcode"];
+    $_SESSION["zip"] = $_POST["zipcode"];
 
-    if(empty($errorArr))
+    if (empty($errorArr))
         $errorArr = "Your order has been send.";
 
-   /* $errorbox = "";
-    for($i = 0; $i< count($errorArr)-1; $i++){
-        $errorbox = $errorbox . $errorArr[[0][$i]] . "<br>";
-    }*/
+    /* $errorbox = "";
+     for($i = 0; $i< count($errorArr)-1; $i++){
+         $errorbox = $errorbox . $errorArr[[0][$i]] . "<br>";
+     }*/
 
     //print_r($errorbox);
-   //print_r($errorArr);
+    //print_r($errorArr);
 }
 
 
