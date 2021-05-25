@@ -26,11 +26,14 @@
     <form method="post">
         <div class="form-row">
             <div class="form-group col-md-6">
-                <p><?php print_r($errorArr);
-                echo $conf ?></p>
+                <p><?php //print_r($errorArr);//
+                    foreach ($errorArr as $i => $product){
+                        echo $errorArr[$i]["Error"] . "<br>";
+                    }
+                    echo $conf ?></p>
                 <label for="email">E-mail:</label>
                 <input type="text" id="email" name="email" class="form-control" value="<?php echo $_SESSION["email"];?>"/>
-                <span class="error">* <?php echo $emailErr;?></span>
+                <span class="error"> <?php echo $emailErr;?></span>
             </div>
             <div></div>
         </div>
@@ -42,24 +45,24 @@
                 <div class="form-group col-md-6">
                     <label for="street">Street:</label>
                     <input type="text" name="street" id="street" class="form-control" value="<?php echo $_SESSION["street"];?>">
-                    <span class="error">* <?php echo $streetErr;?></span>
+                    <span class="error"> <?php echo $streetErr;?></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="streetnumber">Street number:</label>
                     <input type="text" id="streetnumber" name="streetnumber" class="form-control" value="<?php echo $_SESSION["streetNr"];?>">
-                    <span class="error">* <?php echo $streetNrErr;?></span>
+                    <span class="error"> <?php echo $streetNrErr;?></span>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="city">City:</label>
                     <input type="text" id="city" name="city" class="form-control" value="<?php echo $_SESSION["city"];?>">
-                    <span class="error">* <?php echo $cityErr;?></span>
+                    <span class="error"><?php echo $cityErr;?></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="zipcode">Zipcode</label>
                     <input type="text" id="zipcode" name="zipcode" class="form-control" value="<?php echo $_SESSION["zip"];?>">
-                    <span class="error">* <?php echo $zipErr;?></span>
+                    <span class="error"> <?php echo $zipErr;?></span>
                 </div>
             </div>
         </fieldset>
