@@ -51,7 +51,7 @@ $totalValue = 0;
 $errorArr = [];
 $errorbox = "";
 $emailErr = $streetErr = $streetNrErr = $cityErr = $zipErr = "";
-
+$conf="";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -93,8 +93,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION["zip"] = $_POST["zipcode"];
 
     if (empty($errorArr))
-        $errorArr = "Your order has been send.";
+        $conf = "Your order has been send.";
 
+
+    if (isset($_POST['express_delivery'])){
+        $conf = $conf . "<br> The delivery will arrive in 45 minutes.";
+    }else{
+        $conf = $conf . "<br> The delivery will arrive in 2 hours.";
+    }
     /* $errorbox = "";
      for($i = 0; $i< count($errorArr)-1; $i++){
          $errorbox = $errorbox . $errorArr[[0][$i]] . "<br>";

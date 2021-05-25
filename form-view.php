@@ -26,7 +26,8 @@
     <form method="post">
         <div class="form-row">
             <div class="form-group col-md-6">
-                <p><?php print_r($errorArr); ?></p>
+                <p><?php print_r($errorArr);
+                echo $conf ?></p>
                 <label for="email">E-mail:</label>
                 <input type="text" id="email" name="email" class="form-control" value="<?php echo $_SESSION["email"];?>"/>
                 <span class="error">* <?php echo $emailErr;?></span>
