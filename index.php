@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 
 //we are going to use session variables so we need to enable sessions
 session_start();
-
+date_default_timezone_set("Europe/Brussels");
 function whatIsHappening()
 {
     echo '<h2>$_GET</h2>';
@@ -97,9 +97,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     if (isset($_POST['express_delivery'])){
-        $conf = $conf . "<br> The delivery will arrive in 45 minutes.";
+        $conf = $conf . "<br> The delivery will arrive at ". date("H:i",strtotime("+45 minutes") );
     }else{
-        $conf = $conf . "<br> The delivery will arrive in 2 hours.";
+        $conf = $conf . "<br> The delivery will arrive at ". date("H:i",strtotime("+2 hours") );
     }
     /* $errorbox = "";
      for($i = 0; $i< count($errorArr)-1; $i++){
