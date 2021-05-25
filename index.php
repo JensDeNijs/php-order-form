@@ -42,6 +42,8 @@ $totalValue = 0;
 $errorArr = [];
 $errorbox = "";
 $emailErr = $streetErr = $streetNrErr = $cityErr = $zipErr = "";
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($_POST["email"])) {
@@ -75,13 +77,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             array_push($errorArr, ["zipError" => "Zipcode can only contain numbers"]);
         }
     }
-    $errorbox = "";
+    $_SESSION["email"]  = $_POST["email"];
+    $_SESSION["street"] = $_POST["street"];
+    $_SESSION["streetNr"] = $_POST["streetnumber"];
+    $_SESSION["city"] = $_POST["city"];
+    $_SESSION["zip"] =$_POST["zipcode"];
+
+    if(empty($errorArr))
+        $errorArr = "Your order has been send.";
+
+   /* $errorbox = "";
     for($i = 0; $i< count($errorArr)-1; $i++){
         $errorbox = $errorbox . $errorArr[[0][$i]] . "<br>";
-    }
+    }*/
 
-    print_r($errorbox);
-    print_r($errorArr[0]);
+    //print_r($errorbox);
+   //print_r($errorArr);
 }
 
 
