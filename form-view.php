@@ -83,7 +83,9 @@
 
     <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in food and drinks.</footer>
 </div>
-
+<?php
+whatIsHappening();
+?>
 <style>
     footer {
         text-align: center;

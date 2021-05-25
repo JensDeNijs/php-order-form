@@ -7,8 +7,15 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
 //we are going to use session variables so we need to enable sessions
+
+
+
+
+
 session_start();
 date_default_timezone_set("Europe/Brussels");
+
+
 function whatIsHappening()
 {
     echo '<h2>$_GET</h2>';
@@ -29,7 +36,7 @@ $products = [
     ['name' => 'Club Salmon', 'price' => 5]
 ];
 //your products with their price.
-if ($_SERVER['REQUEST_URI'] == "/php-order-form/?food=1"){
+if ($_SERVER['REQUEST_URI'] == "/php-order-form/?food=1") {
     $products = [
         ['name' => 'Club Ham', 'price' => 3.20],
         ['name' => 'Club Cheese', 'price' => 3],
@@ -37,8 +44,7 @@ if ($_SERVER['REQUEST_URI'] == "/php-order-form/?food=1"){
         ['name' => 'Club Chicken', 'price' => 4],
         ['name' => 'Club Salmon', 'price' => 5]
     ];
-}
-elseif ($_SERVER['REQUEST_URI'] == "/php-order-form/?food=0") {
+} elseif ($_SERVER['REQUEST_URI'] == "/php-order-form/?food=0") {
     $products = [
         ['name' => 'Cola', 'price' => 2],
         ['name' => 'Fanta', 'price' => 2],
@@ -46,12 +52,18 @@ elseif ($_SERVER['REQUEST_URI'] == "/php-order-form/?food=0") {
         ['name' => 'Ice-tea', 'price' => 3],
     ];
 }
+if (!isset($_COOKIE["total"])) {
+    $totalValue = "0";
+} else {
+    $totalValue = $_COOKIE["total"];
+}
 
-$totalValue = 0;
+
 $errorArr = [];
 $errorbox = "";
 $emailErr = $streetErr = $streetNrErr = $cityErr = $zipErr = "";
-$conf="";
+$conf = "";
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -96,11 +108,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conf = "Your order has been send.";
 
 
-    if (isset($_POST['express_delivery'])){
-        $conf = $conf . "<br> The delivery will arrive at ". date("H:i",strtotime("+45 minutes") );
-    }else{
-        $conf = $conf . "<br> The delivery will arrive at ". date("H:i",strtotime("+2 hours") );
+    if (isset($_POST['express_delivery'])) {
+        $conf = $conf . "<br> The delivery will arrive at " . date("H:i", strtotime("+45 minutes"));
+    } else {
+        $conf = $conf . "<br> The delivery will arrive at " . date("H:i", strtotime("+2 hours"));
     }
+
+
+    if (!empty($_POST['products'])) {
+        foreach ($_POST['products'] as $i => $product) {
+            $totalValue += $products[$i]['price'];
+        }
+    }
+
+    setcookie('total', strval($totalValue));
+
+
+   // setcookie('total', strval($totalValue));
+
+
     /* $errorbox = "";
      for($i = 0; $i< count($errorArr)-1; $i++){
          $errorbox = $errorbox . $errorArr[[0][$i]] . "<br>";
@@ -108,6 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //print_r($errorbox);
     //print_r($errorArr);
+
 }
 
 
